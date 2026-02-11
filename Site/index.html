@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORA - Vision, Operations & Risk Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body class="antialiased selection:bg-[#8B5CF6] selection:text-white">
+
+    <button id="menu-toggle" class="nav-toggle-btn" aria-label="Menu Principal">
+        <div class="line"></div><div class="line"></div>
+    </button>
+
+    <div id="sidebar-menu" class="sidebar-overlay">
+        <nav class="sidebar-content">
+            <div class="text-[10px] font-bold text-dynamic-dim uppercase tracking-widest mb-6 pl-1">Navegação</div>
+            <a onclick="scrollToSection('home')" class="nav-link-mobile">Início</a>
+            <a onclick="scrollToSection('features')" class="nav-link-mobile">O que somos?</a>
+            <a onclick="scrollToSection('contact')" class="nav-link-mobile">Contato</a>
+            <a onclick="scrollToSection('pricing')" class="nav-link-mobile">Planos</a>
+            <div class="mt-12 pt-8 border-t border-dynamic w-48">
+                <button onclick="openLogin()" class="w-full py-3 px-4 rounded-xl bg-white/10 border border-white/10 hover:bg-white/20 text-sm font-bold transition-all flex items-center justify-center gap-2 text-white">
+                    <span>Acessar Plataforma</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <div id="landing-page">
+        <!-- HEADER REFINADO: BOTÃO + USUÁRIO -->
+        <header id="main-header" class="fixed w-full top-0 z-40 h-20 md:h-24 flex items-center">
+            <div class="w-full px-6 md:px-12 flex items-center justify-between">
+                <div id="header-logo" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity origin-left" onclick="scrollToSection('home')">
+                    <div class="h-12 md:h-14 w-auto relative">
+                        <img src="./img/LogoV.png" onerror="this.src='https://placehold.co/100x50/0A0A0C/FFF?text=VORA'" alt="VORA Logo" class="h-full w-auto object-contain">
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center gap-6">
+                    <!-- Navigation -->
+                    <nav id="desktop-nav-links" class="flex gap-6 items-center mr-2">
+                        <a onclick="scrollToSection('home')" class="nav-link-desktop">Início</a>
+                        <a onclick="scrollToSection('features')" class="nav-link-desktop">O que somos</a>
+                        <a onclick="scrollToSection('contact')" class="nav-link-desktop">Contato</a>
+                        <a onclick="scrollToSection('pricing')" class="nav-link-desktop">Planos</a>
+                    </nav>
+                    
+                    <!-- Platform Action Button (Mantido como pedido) -->
+                    <button id="header-cta" onclick="openLogin()" class="bg-white hover:bg-gray-200 text-black px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-white/5 border border-transparent transform hover:scale-105">
+                        Acessar Plataforma
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="h-6 w-px bg-dynamic-surface border-l border-dynamic"></div>
+                    
+                    <!-- Botão direto de Modo Claro / Escuro (substitui o menu "ghost") -->
+                    <button onclick="toggleThemeQuick()" class="flex items-center gap-2 px-3 py-2 rounded-full border border-dynamic bg-dynamic-surface hover:bg-white/5 transition-all text-sm font-medium text-dynamic-main" id="theme-toggle-button">
+                        <i id="theme-toggle-icon" data-lucide="moon" class="w-4 h-4"></i>
+                        <span id="theme-toggle-label">Modo Escuro</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-32">
+            <section id="home" class="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden -mt-20">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-b from-[#8B5CF6]/5 to-transparent pointer-events-none"></div>
+                <!-- Glow animado central -->
+                <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-[#8B5CF6] rounded-full mix-blend-multiply filter blur-[128px] opacity-10 animate-pulse pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="mb-6 inline-flex">
+                            <span class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-dynamic-surface border border-accent/40 text-sm font-bold text-dynamic-main shadow-[0_0_20px_rgba(139,92,246,0.3)] backdrop-blur-md">
+                                <span class="w-2 h-2 rounded-full bg-accent mr-2 animate-pulse"></span>
+                                Welcome to VORA
+                            </span>
+                        </div>
+                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-dynamic-main leading-[1.1]">
+                            Transforme Dados em <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A78BFA] to-[#7C3AED]">
+                                Visão de Futuro.
+                            </span>
+                        </h1>
+                        <p class="text-lg text-dynamic-dim max-w-lg leading-relaxed mb-8">
+                            Você não vê mais só números.
+Você vê possibilidades. <strong>Gráficos de tendência</strong> e <strong>análises de risco</strong> instantâneas. Simples, visual e acionável.
+                        </p>
+                        <div class="mb-24">
+                             <button onclick="openLogin()" class="btn-purple py-4 px-10 flex items-center justify-center gap-3 text-lg w-full sm:w-auto">
+                                Acessar Dashboard
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="glass-std rounded-2xl p-6 md:p-8 border-dynamic relative transform hover:scale-[1.01] transition-transform duration-500">
+                            <div class="flex justify-between items-center mb-6">
+                                <div><h3 class="text-lg font-bold text-dynamic-main">Previsão de Receita Q4</h3><p class="text-xs text-dynamic-dim">Modelo: Prophet (Confiança 98%)</p></div>
+                                <div class="flex gap-2"><span class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-xs font-mono">▲ +22.4%</span></div>
+                            </div>
+                            <div class="relative h-64 w-full bg-dynamic-surface rounded-lg border border-dynamic p-4 overflow-hidden">
+                                <div class="absolute inset-0 grid grid-cols-6 grid-rows-4 gap-0 opacity-10 pointer-events-none">
+                                    <div class="border-r border-dynamic"></div><div class="border-r border-dynamic"></div><div class="border-r border-dynamic"></div><div class="border-r border-dynamic"></div><div class="border-r border-dynamic"></div>
+                                </div>
+                                <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none py-4">
+                                    <div class="border-b border-dynamic"></div><div class="border-b border-dynamic"></div><div class="border-b border-dynamic"></div>
+                                </div>
+                                <svg class="w-full h-full absolute bottom-0 left-0" viewBox="0 0 400 150" preserveAspectRatio="none">
+                                    <defs><linearGradient id="chartGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(139, 92, 246, 0.5)"/><stop offset="100%" stop-color="rgba(139, 92, 246, 0)"/></linearGradient></defs>
+                                    <path d="M0,120 Q40,110 80,90 T160,70 T240,50 T320,30 T400,10 V150 H0 Z" fill="url(#chartGrad)" class="opacity-50" />
+                                    <path d="M0,120 Q40,110 80,90 T160,70 T240,50 T320,30 T400,10" fill="none" stroke="#8B5CF6" stroke-width="3" class="path-anim" stroke-linecap="round"/>
+                                    <circle cx="80" cy="90" r="3" fill="white" class="animate-pulse" />
+                                    <circle cx="240" cy="50" r="3" fill="white" class="animate-pulse" style="animation-delay: 0.5s"/>
+                                    <circle cx="400" cy="10" r="4" fill="#22D3EE" class="animate-ping" />
+                                </svg>
+                            </div>
+                            <div class="absolute -right-4 -bottom-4 bg-dynamic-panel border border-dynamic p-3 rounded-xl shadow-xl flex items-center gap-3 animate-bounce" style="animation-duration: 4s;">
+                                <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                                <div><div class="text-[10px] text-dynamic-dim uppercase">Insight VORA</div><div class="text-xs font-bold text-dynamic-main">Pico de demanda detectado</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="py-32 px-4 bg-dynamic-surface border-t border-dynamic relative overflow-hidden">
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <div class="text-center mb-24">
+                        <h2 class="text-3xl md:text-5xl font-bold text-dynamic-main mb-6">O que é o VORA?</h2>
+                        <p class="text-dynamic-dim max-w-2xl mx-auto text-lg">Uma plataforma que organiza, aprimora e transforma seus dados, gerando previsões precisas sobre cenários futuros.</p>
+                    </div>
+                    
+                    <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="process-line hidden lg:block"></div>
+
+                        <div class="feature-card p-8">
+                            <div class="feature-icon-box">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-dynamic-main mb-3">Você envia. Nós resolvemos.</h3>
+                            <p class="text-sm text-dynamic-dim leading-relaxed">Basta enviar seu banco de dados. Nossa IA processa, limpa e estrutura as informações automaticamente, eliminando a complexidade técnica.</p>
+                        </div>
+
+                        <div class="feature-card p-8">
+                            <div class="feature-icon-box">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-dynamic-main mb-3">Alinhamento via Chat</h3>
+                            <p class="text-sm text-dynamic-dim leading-relaxed">O Agente Vora analisa os dados e conversa com você em linguagem natural para entender exatamente quais são seus objetivos de negócio.</p>
+                        </div>
+
+                        <div class="feature-card p-8">
+                            <div class="feature-icon-box">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-dynamic-main mb-3">Séries Temporais</h3>
+                            <p class="text-sm text-dynamic-dim leading-relaxed">Construção automática de modelos preditivos focados em séries temporais. Detecta sazonalidade e tendências sem uma linha de código.</p>
+                        </div>
+
+                        <div class="feature-card p-8">
+                            <div class="feature-icon-box">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-dynamic-main mb-3">O Futuro, Visualizado</h3>
+                            <p class="text-sm text-dynamic-dim leading-relaxed">Resultados entregues em um dashboard interativo e intuitivo. Transforme previsões complexas em decisões estratégicas claras.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-24 text-center max-w-3xl mx-auto">
+                         <h3 class="text-2xl md:text-3xl font-semibold text-dynamic-main mb-4">"O Vora não é só uma ferramenta."</h3>
+                         <p class="text-dynamic-dim">É a inteligência por trás das suas decisões.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-24 px-4 bg-dynamic-panel border-t border-dynamic relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-var(--bg-core) pointer-events-none"></div>
+                <div class="max-w-6xl mx-auto relative z-10">
+                    <div class="grid md:grid-cols-2 gap-16 items-start">
+                        <div class="text-left space-y-8">
+                            <div>
+                                <span class="text-accent font-bold tracking-wider text-sm uppercase mb-2 block">Contato</span>
+                                <h2 class="text-4xl md:text-5xl font-extrabold text-dynamic-main mb-4 leading-tight">Vamos acelerar o <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600">futuro dos seus dados?</span></h2>
+                                <p class="text-dynamic-dim text-lg max-w-md">Nós organizamos, analisamos e entregamos o caminho para você tomar decisões melhores.</p>
+                            </div>
+                            <div class="space-y-6">
+                                <!-- Email Block -->
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white border border-dynamic shrink-0 bg-dynamic-surface">
+                                        <svg class="w-5 h-5 text-dynamic-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-dynamic-main font-bold text-sm">Fale com o time</h4>
+                                        <a href="mailto:enterprise@vora.ai" class="text-dynamic-dim hover:text-accent transition-colors">voraanalystics@gmail.com</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Phone Block (NOVO) -->
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-white border border-dynamic shrink-0 bg-dynamic-surface">
+                                        <svg class="w-5 h-5 text-dynamic-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-dynamic-main font-bold text-sm">Ligue para nós</h4>
+                                        <a href="tel:+5511999999999" class="text-dynamic-dim hover:text-accent transition-colors">+55 (11) 99999-9999</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-std p-8 bg-dynamic-surface shadow-2xl">
+                            <h3 class="text-xl font-bold text-dynamic-main mb-6">Envie uma mensagem</h3>
+<form class="space-y-5" onsubmit="handleContactSubmit(event)">
+    <div class="grid md:grid-cols-2 gap-5">
+        <div>
+            <label class="block text-xs font-bold text-dynamic-dim uppercase mb-2">Nome</label>
+            <input id="contact-nome" type="text" class="input-std" placeholder="Seu nome completo" required>
+        </div>
+
+        <div>
+            <label class="block text-xs font-bold text-dynamic-dim uppercase mb-2">Empresa</label>
+            <input id="contact-empresa" type="text" class="input-std" placeholder="Nome da empresa">
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-dynamic-dim uppercase mb-2">Email</label>
+        <input id="contact-email" type="email" class="input-std" placeholder="email@exemplo.com" required>
+    </div>
+
+    <div>
+        <label class="block text-xs font-bold text-dynamic-dim uppercase mb-2">Mensagem ou Dúvida</label>
+        <textarea id="contact-mensagem" class="input-std h-32 resize-none" placeholder="Descreva seu desafio com dados..." required></textarea>
+    </div>
+
+                                 <button id="contact-submit-btn" class="w-full btn-primary py-4 hover:scale-[1.02] transition-transform shadow-lg font-bold">
+                                     Falar com Especialista
+                                 </button>
+
+                                     <p class="text-center text-xs text-dynamic-dim mt-4">
+                                     Ao enviar, você concorda com nossa 
+                                     <a href="politicaContato.html" class="underline hover:text-dynamic-main">Política de Privacidade</a>.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pricing" class="py-24 px-4 bg-dynamic-surface border-t border-dynamic">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-16"><h2 class="text-3xl md:text-4xl font-bold text-dynamic-main mb-4">Planos Flexíveis</h2><p class="text-dynamic-dim">Escale sua inteligência operacional.</p></div>
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <div class="card-std p-8 bg-dynamic-card"><h3 class="text-xl font-semibold text-dynamic-dim mb-2">Basic</h3><div class="text-3xl font-bold text-dynamic-main mb-4">R$ 490<span class="text-sm text-dynamic-dim font-normal">/mês</span></div><ul class="space-y-3 mb-8 text-sm text-dynamic-dim"><li class="flex items-center gap-2"><span>✓</span> 5 Previsões/mês</li><li class="flex items-center gap-2"><span>✓</span> Dashboard Básico</li></ul><button onclick="openLogin()" class="w-full py-3 rounded-xl border border-dynamic text-dynamic-main font-semibold hover:bg-white/5 transition-all">Começar Basic</button></div>
+                        <!-- Card Popular Ajustado -->
+                        <div class="card-popular p-8 border-accent/40 shadow-2xl relative transform md:-translate-y-4 z-10 rounded-2xl">
+                            <!-- Selo Popular com fundo roxo explícito para não sumir o texto -->
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">POPULAR</div>
+                            <h3 class="text-xl font-semibold text-accent mb-2">Plus</h3>
+                            <!-- Texto principal também ajustado para ser legível no modo claro/escuro -->
+                            <div class="text-4xl font-bold text-dynamic-main mb-4">R$ 1.290<span class="text-sm text-dynamic-dim font-normal">/mês</span></div>
+                            <ul class="space-y-3 mb-8 text-sm text-dynamic-dim">
+                                <li class="flex items-center gap-2"><span class="text-accent">✓</span> <strong>Agente Autônomo</strong></li>
+                                <li class="flex items-center gap-2"><span class="text-accent">✓</span> Conexão SQL Direta</li>
+                                <li class="flex items-center gap-2"><span class="text-accent">✓</span> Previsões Ilimitadas</li>
+                            </ul>
+                            <button onclick="openLogin()" class="w-full py-3 rounded-xl bg-accent text-white font-bold hover:bg-[#7C3AED] transition-all shadow-lg shadow-purple-900/40">Começar Plus</button>
+                        </div>
+                        <div class="card-std p-8 bg-dynamic-card"><h3 class="text-xl font-semibold text-dynamic-dim mb-2">Pro</h3><div class="text-3xl font-bold text-dynamic-main mb-4">Custom</div><ul class="space-y-3 mb-8 text-sm text-dynamic-dim"><li class="flex items-center gap-2"><span>✓</span> Deploy Privado</li><li class="flex items-center gap-2"><span>✓</span> API Dedicada</li></ul><button class="w-full py-3 rounded-xl border border-dynamic text-dynamic-main font-semibold hover:bg-white/5 transition-all">Falar com Vendas</button></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- FOOTER -->
+            <footer class="bg-dynamic-panel pt-20 pb-10 border-t border-dynamic relative overflow-hidden">
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-6 relative z-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                        <div>
+                            <div class="h-8 w-auto mb-6 opacity-80 relative">
+                                <img src="./img/LogoV.png" alt="VORA Logo" class="h-full object-contain">
+                            </div>
+                            <p class="text-dynamic-dim text-sm leading-relaxed mb-6">
+                                Transformando a complexidade de dados em clareza operacional. A inteligência que sua empresa precisa para escalar com segurança.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-dynamic-main font-bold mb-6">Plataforma</h4>
+                            <ul class="space-y-4 text-sm text-dynamic-dim">
+                                <li><a href="#" class="hover:text-accent transition-colors">Recursos</a></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Segurança</a></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Integrações SQL</a></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Roadmap</a></li>
+                            </ul>
+                        </div>
+
+                         <div>
+                            <h4 class="text-dynamic-main font-bold mb-6">Empresa</h4>
+                            <ul class="space-y-4 text-sm text-dynamic-dim">
+                                <li><a href="#" class="hover:text-accent transition-colors">Sobre Nós</a></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Carreiras</a> <span class="text-[10px] bg-white/10 text-dynamic-main px-2 py-0.5 rounded ml-2">Hiring</span></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Blog de Engenharia</a></li>
+                                <li><a href="#" class="hover:text-accent transition-colors">Contato</a></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="text-dynamic-main font-bold mb-6">Fique Conectado</h4>
+                            <p class="text-dynamic-dim text-xs mb-4">Receba insights mensais sobre Data Science e Inteligência Artificial.</p>
+                            <div class="flex gap-2">
+                                <input type="email" placeholder="Email corporativo" class="input-std">
+                                <button class="bg-accent hover:bg-[#7C3AED] text-white p-2 rounded-lg transition-colors flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 border-t border-dynamic flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="text-dynamic-dim text-xs">
+                            &copy; 2025 VORA Analytics Inc. Todos os direitos reservados.
+                        </div>
+                        
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-dynamic hover:bg-white/10 transition-colors cursor-pointer group">
+                            <span class="relative flex h-2 w-2">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 group-hover:bg-green-300"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500 group-hover:bg-green-400"></span>
+                            </span>
+                            <span class="text-[10px] font-mono text-dynamic-dim uppercase tracking-wider group-hover:text-dynamic-main transition-colors">All Systems Operational</span>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <a href="#" class="text-dynamic-dim hover:text-dynamic-main transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764 0-.974.784-1.764 1.75-1.764s1.75.79 1.75 1.764c0 .974-.784 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.355 7 3.541v5.694z"/></svg></a>
+                            <a href="#" class="text-dynamic-dim hover:text-dynamic-main transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                            <a href="#" class="text-dynamic-dim hover:text-dynamic-main transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- AUTH VIEW (LOGIN / REGISTER MODAL) -->
+    <div id="login-view">
+        <div class="glass-std rounded-2xl w-full max-w-4xl relative transform transition-all duration-300 scale-100 overflow-hidden flex">
+            <button onclick="closeApp()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div class="grid md:grid-cols-2 w-full">
+                <!-- Left Column (Dynamic Auth Form) -->
+                <div class="p-8 md:p-12 flex flex-col justify-center bg-dynamic-panel relative">
+                    <div class="text-left mb-6">
+                        <div class="w-18 h-16 mb-4 relative rounded overflow-hidden">
+                            <img src="./img/LogoV.png" alt="VORA Logo" class="h-full w-auto object-contain">
+                        </div>
+                        <h2 id="auth-title" class="text-2xl font-bold text-dynamic-main transition-all duration-300">Bem-vindo ao VORA</h2>
+                        <p id="auth-subtitle" class="text-sm text-dynamic-dim mt-2 transition-all duration-300">Faça login para acessar a plataforma.</p>
+                    </div>
+                    
+                    <!-- Container for swapping forms -->
+                    <div class="auth-form-container">
+                        <!-- LOGIN FORM -->
+                        <div id="login-form" class="visible-form space-y-4">
+                            <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Email</label><input type="email" id="login-email" class="input-std" placeholder="email@exemplo.com"></div>
+                            <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Senha</label><input type="password" id="login-password" class="input-std" placeholder="••••••••"></div>
+                            <button onclick="handleAuthSubmit('login')" class="w-full btn-primary py-3 mt-2 flex justify-center items-center gap-2" id="login-btn">Entrar</button>
+                            
+                            <div class="relative flex py-2 items-center"><div class="flex-grow border-t border-dynamic"></div><span class="mx-4 text-xs text-dynamic-dim uppercase">Ou</span><div class="flex-grow border-t border-dynamic"></div></div>
+                            <button class="w-full btn-google py-3 mt-2" onclick="handleAuthSubmit('google')"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google</button>
+                            
+                            <div class="mt-6 text-center pt-6 border-t border-dynamic">
+                                <p class="text-xs text-dynamic-dim">Novo no VORA? <a onclick="toggleAuthMode('register')" class="text-accent font-bold hover:text-dynamic-main transition-colors cursor-pointer">Registrar-se</a></p>
+                            </div>
+                        </div>
+
+                        <!-- REGISTER FORM (Hidden by default) -->
+                        <div id="register-form" class="hidden-form space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Nome</label><input type="text" id="reg-name" class="input-std" placeholder="Seu nome"></div>
+                                <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Sobrenome</label><input type="text" id="reg-lastname" class="input-std" placeholder="Sobrenome"></div>
+                            </div>
+                            <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Email Corporativo</label><input type="email" id="reg-email" class="input-std" placeholder="voce@empresa.com"></div>
+                            <div><label class="block text-xs text-dynamic-dim uppercase font-bold mb-2">Senha</label><input type="password" id="reg-pass" class="input-std" placeholder="Mínimo 8 caracteres"></div>
+                            
+                            <button onclick="handleAuthSubmit('register')" class="w-full btn-primary py-3 mt-4 flex justify-center items-center gap-2" id="register-btn">Criar Conta</button>
+                            
+                            <div class="mt-6 text-center pt-6 border-t border-dynamic">
+                                <p class="text-xs text-dynamic-dim">Já tem uma conta? <a onclick="toggleAuthMode('login')" class="text-accent font-bold hover:text-dynamic-main transition-colors cursor-pointer">Fazer Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (NOVO VISUAL "REDES NEURAIS/DADOS") -->
+                <div class="hidden md:flex flex-col justify-center p-12 relative overflow-hidden bg-dynamic-surface">
+                     <canvas id="neural-canvas"></canvas>
+                     <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-core)] via-transparent to-transparent pointer-events-none"></div>
+                     <div class="relative z-10 mt-auto mb-12 ml-4 pointer-events-none">
+                        <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-sm">
+                            <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                            <span class="text-xs text-accent font-mono tracking-widest">REDE NEURAL VORA</span>
+                        </div>
+                        <h3 class="text-4xl font-bold text-dynamic-main mb-2 font-mono leading-tight">Processando <br><span class="text-dynamic-dim">Terabytes...</span></h3>
+                        <div class="mt-6 space-y-2 max-w-xs">
+                            <div class="flex justify-between text-[10px] text-dynamic-dim font-mono uppercase"><span>Modelo Preditivo</span><span class="text-green-400">Ativo</span></div>
+                            <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-accent w-2/3 rounded-full animate-pulse"></div></div>
+                            <div class="flex justify-between text-[10px] text-dynamic-dim font-mono uppercase pt-2"><span>Análise de Risco</span><span class="text-green-400">98%</span></div>
+                            <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-purple-400 w-[98%] rounded-full"></div></div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SYSTEM MODAL ===================== -->
+    <div id="sys-modal" class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="glass-heavy w-full max-w-md rounded-2xl p-6 border-dynamic transform scale-95 transition-transform duration-300 relative shadow-2xl" id="sys-modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-dynamic-dim hover:text-dynamic-main transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-dynamic-panel border border-accent/30 text-dynamic-main px-4 py-3 rounded-lg shadow-xl translate-y-20 opacity-0 transition-all duration-300 z-[400] flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+        <span id="toast-msg" class="text-sm font-medium">Notification</span>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+email-validator
+pydantic[email]
+python-multipart
+pandas
+passlib[bcrypt]
+python-oracledb
+pandas
+openpyxl
+tensorflow 
+numpy 
+scikit-learn
+a

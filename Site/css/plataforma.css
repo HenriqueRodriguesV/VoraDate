@@ -1,0 +1,108 @@
+
+        /* --- DESIGN SYSTEM REFINADO --- */
+        :root {
+            /* Variáveis Base (Dark Mode Default) */
+            --bg-core: #0A0A0C;
+            --bg-panel: rgba(21, 21, 26, 0.9); /* Header/Toolbar backgrounds */
+            --bg-surface: rgba(13, 13, 17, 0.8); /* Cards/Terminal backgrounds */
+            --bg-card: rgba(20, 20, 25, 0.6);
+            --bg-input: rgba(0,0,0,0.3);
+            
+            --accent: #8B5CF6;
+            
+            --border-std: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.05);
+            
+            --text-main: #E2E8F0;
+            --text-dim: #94a3b8;
+            --text-inverse: #000000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* --- UTILS VISUAIS --- */
+        .glass-std {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-std);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        /* Glass mais forte para dropdowns e modais */
+        .glass-heavy {
+            background: var(--bg-panel);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-std);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Classes Utilitárias Customizadas para Cores Dinâmicas */
+        .bg-dynamic-panel { background-color: var(--bg-panel); }
+        .bg-dynamic-surface { background-color: var(--bg-surface); }
+        .bg-dynamic-main { background-color: var(--text-main); } /* Botões primários */
+        .border-dynamic { border-color: var(--border-std); }
+        .text-dynamic-main { color: var(--text-main); }
+        .text-dynamic-dim { color: var(--text-dim); }
+        .text-dynamic-inverse { color: var(--bg-core); } /* Texto dentro de botões primários */
+
+        /* --- VIEWS (PLATFORM) --- */
+        .full-screen-view {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-core); z-index: 200; 
+            display: block;
+            transition: background-color 0.4s ease;
+        }
+
+        /* --- PADRONIZAÇÃO DE COMPONENTES --- */
+        .btn-primary {
+            background-color: var(--text-main); 
+            color: var(--bg-core); 
+            font-weight: 700;
+            border-radius: 0.75rem; 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+        
+        .input-std {
+            background: var(--bg-input);
+            border: 1px solid var(--border-std);
+            color: var(--text-main);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .input-std:focus { border-color: var(--accent); }
+
+        .text-accent { color: var(--accent); }
+        .text-success-soft { color: #48BB78; }
+        
+        /* --- ANIMAÇÃO --- */
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; } 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Menu Animation */
+        .origin-top-right { transform-origin: top right; }
+        .scale-enter { animation: scaleEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes scaleEnter { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* Modal Animation */
+        .modal-enter { animation: modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes modalEnter { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Scrollbar Customizada */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: var(--border-std); border-radius: 20px; }
+    

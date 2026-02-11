@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORA - Plataforma de Análise</title>
+    <!-- Carregando Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Google Font: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (para ícones vetoriais leves) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js para gráficos da Dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/plataforma.css">
+</head>
+<body class="antialiased selection:bg-[#8B5CF6] selection:text-white">
+
+    <!-- ===================== PLATAFORMA VIEW (WORKSPACE) ===================== -->
+    <div id="platform-view" class="full-screen-view">
+        <div class="max-w-7xl mx-auto h-full flex flex-col p-4 md:p-8 relative">
+            
+            <!-- Platform Header -->
+            <div class="flex justify-between items-center mb-6" id="platform-header">
+                <div class="flex items-center gap-3">
+                    <div class="w-24 h-12 relative flex items-center">
+                        <img src="./img/LogoV.png" onerror="this.src='https://placehold.co/100x50/0A0A0C/FFF?text=VORA'" alt="VORA Logo" class="h-full w-auto object-contain">
+                    </div>
+                </div>
+                
+                <!-- ÁREA DA CONTA DO USUÁRIO -->
+                <div class="flex items-center gap-4">
+                    <span class="hidden md:flex px-3 py-1 bg-green-500/10 text-green-400 text-xs rounded border border-green-500/20 items-center gap-2 font-mono">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SECURE
+                    </span>
+
+                    <div class="h-8 w-px bg-white/10 hidden md:block"></div>
+
+                    <!-- User Profile Dropdown Container -->
+                    <div class="relative" id="user-menu-container">
+                        <button onclick="toggleUserMenu()" class="flex items-center gap-3 group focus:outline-none transition-opacity hover:opacity-80">
+                            <div class="text-right hidden sm:block">
+                                <div class="text-sm font-medium transition-colors text-dynamic-main" id="current-username">Admin User</div>
+                                <div class="text-[10px] font-mono text-dynamic-dim" id="current-email">vora@admin.sys</div>
+                            </div>
+
+                            <div class="relative">
+                                <!-- IMAGEM DO PERFIL NO HEADER -->
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#2a2a30] to-[#15151A] border border-white/20 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/10 group-hover:border-accent transition-colors">
+                                    <span data-user-avatar-initial>A</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#0A0A0C] rounded-full"></div>
+                            </div>
+
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-dynamic-dim group-hover:text-dynamic-main transition-colors duration-200" id="user-chevron"></i>
+                        </button>
+
+                        <!-- Dropdown Menu Content (ATUALIZADO) -->
+                        <div id="user-dropdown" class="hidden absolute right-0 mt-3 w-64 glass-heavy rounded-xl shadow-2xl overflow-hidden z-50 origin-top-right border-dynamic">
+                            <!-- Cabeçalho com nome e email (mobile) -->
+                            <div class="p-4 border-b border-dynamic sm:hidden bg-white/5">
+                                <div class="font-medium text-sm text-dynamic-main" data-user-name>Admin User</div>
+                                <div class="text-[11px] text-dynamic-dim font-mono max-w-[190px] truncate" data-user-email>
+                                    vora@admin.sys
+                                </div>
+                            </div>
+
+                            <!-- Ações principais -->
+                            <div class="p-2 space-y-1">
+                                <!-- MEU PERFIL (melhorado) -->
+                                <button onclick="appActions.openProfile()" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-left group hover:bg-white/10 transition-colors">
+                                    <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
+                                        <i data-lucide="user" class="w-4 h-4 text-accent"></i>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-dynamic-main">Meu Perfil</span>
+                                        <span class="text-[11px] text-dynamic-dim">Ver dados da sua conta</span>
+                                    </div>
+                                </button>
+
+                                <!-- Configurações -->
+                                <button onclick="appActions.openSettings()" class="w-full flex items-center gap-3 px-3 py-2 text-sm text-dynamic-dim hover:bg-white/5 hover:text-dynamic-main rounded-lg transition-colors text-left group">
+                                    <i data-lucide="settings" class="w-4 h-4 text-gray-500 group-hover:text-accent"></i> 
+                                    Configurações
+                                </button>
+                            </div>
+
+                            <div class="h-px bg-white/10 mx-2"></div>
+
+                            <!-- Contas (somente a conta atual) -->
+                            <div class="p-2 space-y-1">
+                                <div class="px-0 py-1 text-[10px] uppercase font-bold text-gray-500 tracking-wider">Contas</div>
+                                <button class="w-full flex items-center justify-between px-3 py-2 text-sm text-dynamic-main bg-white/5 rounded-lg border border-accent/20 transition-colors text-left cursor-default">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-5 h-5 rounded-full bg-accent flex items-center justify-center text-[10px] text-black font-bold">
+                                            <span data-user-avatar-initial>A</span>
+                                        </div>
+                                        <span id="dropdown-account-email" class="max-w-[170px] truncate text-[11px] font-mono text-dynamic-main">
+                                            vora@admin.sys
+                                        </span>
+                                    </div>
+                                    <i data-lucide="check" class="w-3 h-3 text-accent"></i>
+                                </button>
+                            </div>
+
+                            <div class="h-px bg-white/10 mx-2"></div>
+
+                            <!-- Sair -->
+                            <div class="p-2">
+                                <button onclick="appActions.logout()" class="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-500 rounded-lg transition-colors group text-left">
+                                    <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i> 
+                                    Sair da Plataforma
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Container -->
+            <div class="glass-std rounded-2xl overflow-hidden flex-1 flex flex-col min-h-[0px] transition-all duration-500" id="platform-container">
+                <!-- Toolbar -->
+                <div class="bg-dynamic-panel px-4 flex items-center justify-between h-14 shrink-0 border-b border-dynamic">
+                    <div class="flex gap-1 h-full">
+                        <!-- Aba: Conectar Dados -->
+                        <button onclick="switchAppTab('data')" id="btn-tab-data" class="tab-btn active px-4 md:px-6 text-sm font-medium flex items-center gap-2 outline-none h-full border-b-2 transition-colors text-dynamic-main">
+                            <i data-lucide="database" class="w-4 h-4 opacity-70"></i> Conectar Dados
+                        </button>
+                        <!-- Aba: Limpar / Generalizar -->
+                        <button onclick="switchAppTab('clean')" id="btn-tab-clean"
+                                class="tab-btn px-4 md:px-6 text-sm font-medium flex items-center gap-2 outline-none h-full border-b-2 transition-colors text-dynamic-dim hover:text-dynamic-main">
+                            <i data-lucide="filter" class="w-4 h-4 opacity-70"></i> Limpar / Generalizar
+                        </button>
+
+                        <!-- Aba: Terminal -->
+                        <button onclick="switchAppTab('terminal')" id="btn-tab-terminal" class="tab-btn px-4 md:px-6 text-sm font-medium flex items-center gap-2 outline-none h-full border-b-2 transition-colors text-dynamic-dim hover:text-dynamic-main">
+                            <i data-lucide="terminal-square" class="w-4 h-4 opacity-70"></i> Terminal
+                        </button>
+                        <!-- Aba: Dashboard -->
+                        <button onclick="switchAppTab('graph')" id="btn-tab-graph" class="tab-btn px-4 md:px-6 text-sm font-medium flex items-center gap-2 outline-none h-full border-b-2 transition-colors text-dynamic-dim hover:text-dynamic-main">
+                            <i data-lucide="activity" class="w-4 h-4 opacity-70"></i> Dashboard
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+                    <!-- Main Panel -->
+                    <div class="flex-1 p-6 overflow-y-auto relative" style="background-color: var(--bg-core);">
+                        
+                        <!-- Tab: Conectar Dados -->
+                        <div id="tab-data" class="app-tab-content h-full flex flex-col animate-fadeIn">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+                                
+                                <!-- Card: Upload CSV/File -->
+                                <div class="bg-dynamic-surface border border-dashed border-dynamic rounded-xl p-8 flex flex-col items-center justify-center text-center hover:border-accent transition-colors group cursor-pointer" onclick="document.getElementById('hidden-file-input').click()">
+                                    <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <i data-lucide="upload-cloud" class="w-8 h-8 text-accent"></i>
+                                    </div>
+                                    <h3 id="upload-card-title" class="text-lg font-bold text-dynamic-main mb-2">Upload de Arquivo</h3>
+                                    <p class="text-sm text-dynamic-dim mb-6 max-w-xs">Arraste e solte seu arquivo CSV, JSON ou Excel aqui para iniciar a análise local.</p>
+                                    
+                                    <!-- Input de arquivo invisível e Botão -->
+                                    <input type="file" id="hidden-file-input" class="hidden" accept=".csv, .json, .xlsx, .xls">
+                                    <button 
+                                        class="px-4 py-2 
+                                               bg-gray-200 dark:bg-gray-800
+                                               text-black dark:text-white
+                                               border border-gray-400 dark:border-gray-600
+                                               rounded text-xs font-medium
+                                               hover:bg-accent hover:text-white
+                                               transition-colors"
+                                        onclick="event.stopPropagation(); document.getElementById('hidden-file-input').click()">
+                                        Selecionar Arquivo
+                                    </button>
+                                </div>
+
+                                <div class="flex flex-col gap-6">
+                                    <!-- Card: API Connect -->
+                                    <div class="bg-dynamic-surface border border-dynamic rounded-xl p-6 flex-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <i data-lucide="webhook" class="w-5 h-5 text-accent"></i>
+                                            <h3 class="text-sm font-bold text-dynamic-main">Conectar via API</h3>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <div>
+                                                <label class="text-[10px] uppercase font-bold text-dynamic-dim mb-1 block">Endpoint URL</label>
+                                                <input type="text" class="input-std text-xs" placeholder="https://api.exemplo.com/v1/dados">
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] uppercase font-bold text-dynamic-dim mb-1 block">API Key (Opcional)</label>
+                                                <input type="password" class="input-std text-xs" placeholder="••••••••••••••••">
+                                            </div>
+                                            <button onclick="showToast('Conectando API...')" class="w-full py-2 bg-dynamic-main text-dynamic-inverse rounded text-xs font-bold hover:opacity-90 transition-opacity mt-2">Testar Conexão</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card: Database -->
+                                    <div class="bg-dynamic-surface border border-dynamic rounded-xl p-6 flex-1">
+                                        <h3 class="text-sm font-bold text-dynamic-main mb-4 flex items-center gap-2">
+                                            <i data-lucide="database" class="w-4 h-4 text-accent"></i> Banco de Dados
+                                        </h3>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <button class="flex flex-col items-center justify-center p-3 rounded bg-[var(--bg-input)] hover:bg-accent/20 border border-dynamic hover:border-accent transition-all">
+                                                <div class="text-xs font-bold text-dynamic-main">PG</div>
+                                                <span class="text-[10px] text-dynamic-dim">Postgres</span>
+                                            </button>
+                                            <button class="flex flex-col items-center justify-center p-3 rounded bg-[var(--bg-input)] hover:bg-accent/20 border border-dynamic hover:border-accent transition-all">
+                                                <div class="text-xs font-bold text-dynamic-main">MY</div>
+                                                <span class="text-[10px] text-dynamic-dim">MySQL</span>
+                                            </button>
+                                            <button class="flex flex-col items-center justify-center p-3 rounded bg-[var(--bg-input)] hover:bg-accent/20 border border-dynamic hover:border-accent transition-all">
+                                                <div class="text-xs font-bold text-dynamic-main">MDB</div>
+                                                <span class="text-[10px] text-dynamic-dim">Mongo</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Limpar / Generalizar -->
+                        <div id="tab-clean" class="app-tab-content h-full hidden flex-col animate-fadeIn">
+                            <div class="mb-6">
+                                <h3 class="text-lg font-bold text-dynamic-main mb-1">Preparar Dados</h3>
+                                <p class="text-sm text-dynamic-dim">Ajuste a qualidade dos seus dados antes da análise.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full overflow-hidden">
+                                <!-- Coluna 1: Controles -->
+                                <div class="lg:col-span-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                                    <!-- Card: Limpeza Rápida -->
+                                    <div class="bg-dynamic-surface border border-dynamic rounded-xl p-5">
+                                        <h4 class="text-xs font-bold text-dynamic-dim uppercase tracking-wider mb-4 flex items-center gap-2">
+                                            <i data-lucide="check-circle-2" class="w-4 h-4 text-accent"></i> Correções
+                                        </h4>
+                                        <div class="space-y-6">
+                                            <!-- Switch 1 -->
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm text-dynamic-main cursor-pointer select-none" for="check-dups">Remover Linhas Duplicadas</label>
+                                                <div class="flex items-center gap-3">
+                                                    <!-- AGORA ATIVO POR PADRÃO -->
+                                                    <span id="status-dups" class="text-[10px] font-bold text-accent uppercase transition-colors">ATIVO</span>
+                                                    <div class="relative inline-block w-10 align-middle select-none">
+                                                        <input type="checkbox" id="check-dups" class="peer absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 left-0 checked:left-5 checked:border-accent z-10" checked onchange="updateToggleStatus(this, 'status-dups')" />
+                                                        <label for="check-dups" class="block overflow-hidden h-5 rounded-full bg-[var(--bg-input)] cursor-pointer border border-dynamic peer-checked:bg-accent peer-checked:border-accent peer-checked:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-colors"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Switch 2 -->
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm text-dynamic-main cursor-pointer select-none" for="check-nulls">Corrigir Valores Vazios</label>
+                                                <div class="flex items-center gap-3">
+                                                    <!-- CONTINUA ATIVO, SÓ AJUSTEI TEXTO PRA "ATIVO" MAIÚSCULO -->
+                                                    <span id="status-nulls" class="text-[10px] font-bold text-accent uppercase transition-colors">ATIVO</span>
+                                                    <div class="relative inline-block w-10 align-middle select-none">
+                                                        <input type="checkbox" id="check-nulls" class="peer absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 left-0 checked:left-5 checked:border-accent z-10" checked onchange="updateToggleStatus(this, 'status-nulls')" />
+                                                        <label for="check-nulls" class="block overflow-hidden h-5 rounded-full bg-[var(--bg-input)] cursor-pointer border border-dynamic peer-checked:bg-accent peer-checked:border-accent peer-checked:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-colors"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Switch 3 -->
+                                            <div class="flex items-center justify-between">
+                                                <label class="text-sm text-dynamic-main cursor-pointer select-none" for="check-fmt">Padronizar Formatos</label>
+                                                <div class="flex items-center gap-3">
+                                                    <!-- AGORA ATIVO POR PADRÃO -->
+                                                    <span id="status-fmt" class="text-[10px] font-bold text-accent uppercase transition-colors">ATIVO</span>
+                                                    <div class="relative inline-block w-10 align-middle select-none">
+                                                        <input type="checkbox" id="check-fmt" class="peer absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 left-0 checked:left-5 checked:border-accent z-10" checked onchange="updateToggleStatus(this, 'status-fmt')" />
+                                                        <label for="check-fmt" class="block overflow-hidden h-5 rounded-full bg-[var(--bg-input)] cursor-pointer border border-dynamic peer-checked:bg-accent peer-checked:border-accent peer-checked:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-colors"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-6 pt-4 border-t border-dynamic">
+                                            <p class="text-[10px] text-dynamic-dim mb-3">
+                                                Aplica correções padrão (remoção de duplicados, tratamento de valores vazios e padronização básica de formatos) no dataset atual.
+                                            </p>
+                                            <button
+                                                onclick="runCleaningPipeline()"
+                                                class="w-full py-3 bg-dynamic-main text-dynamic-inverse rounded-lg text-sm font-bold hover:opacity-90 transition-opacity shadow-lg shadow-purple-900/20 flex items-center justify-center gap-2">
+                                                <i data-lucide="" class=""></i>
+                                                Aplicar limpeza neste dataset
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Coluna 2: Prévia -->
+                                <div class="lg:col-span-2 bg-dynamic-surface border border-dynamic rounded-xl p-0 flex flex-col h-[500px] lg:h-auto overflow-hidden">
+                                    <div class="p-4 border-b border-dynamic flex justify-between items-center bg-dynamic-panel">
+                                        <h4 class="text-sm font-bold text-dynamic-main flex items-center gap-2"><i data-lucide="table" class="w-4 h-4 opacity-50"></i> Prévia dos Dados</h4>
+                                        <div class="flex gap-2">
+                                            <span class="text-[10px] bg-red-500/10 text-red-400 px-2 py-1 rounded border border-red-500/20 flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-red-500"></div> 0 Vazios</span>
+                                            <span class="text-[10px] bg-yellow-500/10 text-yellow-400 px-2 py-1 rounded border border-yellow-500/20 flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div> 0 Duplicados</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 overflow-auto bg-[var(--bg-core)] relative custom-scrollbar flex items-center justify-center">
+                                        <table class="w-full text-left text-xs whitespace-nowrap font-mono h-full">
+                                            <thead class="bg-dynamic-panel text-dynamic-dim sticky top-0 z-10">
+                                                <tr>
+                                                    <th class="p-3 border-b border-r border-dynamic font-medium w-16"></th>
+                                                    <th class="p-3 border-b border-r border-dynamic font-medium"></th>
+                                                    <th class="p-3 border-b border-r border-dynamic font-medium"></th>
+                                                    <th class="p-3 border-b border-r border-dynamic font-medium"></th>
+                                                    <th class="p-3 border-b border-r border-dynamic font-medium"></th>
+                                                    <th class="p-3 border-b border-dynamic font-medium"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-dynamic-dim divide-y divide-[var(--border-std)]">
+                                                <tr>
+                                                    <td colspan="6" class="p-8 text-center text-dynamic-dim opacity-50">
+                                                        Nenhum dado carregado. Faça upload na aba "Conectar Dados".
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="p-2 border-t border-dynamic bg-dynamic-panel flex justify-between items-center">
+                                        <span id="preview-row-count" class="text-[10px] text-dynamic-dim">Mostrando 0 linhas</span>
+                                        <div class="flex gap-1">
+                                            <button class="p-1 hover:bg-white/10 rounded disabled:opacity-30" disabled><i data-lucide="chevron-left" class="w-4 h-4 text-dynamic-dim"></i></button>
+                                            <button class="p-1 hover:bg-white/10 rounded disabled:opacity-30" disabled><i data-lucide="chevron-right" class="w-4 h-4 text-dynamic-dim"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Terminal -->
+                        <div id="tab-terminal" class="app-tab-content h-full hidden flex-col">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="text-xs font-mono text-gray-500">root@vora-server:~/analytics</div>
+                                <button id="runBtn" class="bg-dynamic-main hover:opacity-90 text-dynamic-inverse px-4 py-1.5 rounded text-xs font-mono transition-colors shadow-lg shadow-purple-900/20 cursor-pointer">> INICIAR ANÁLISE</button>
+                            </div>
+                            <div id="terminalOutput" class="flex-1 bg-dynamic-surface border border-dynamic rounded p-4 font-mono text-xs overflow-y-auto font-light shadow-inner">
+                                <div class="text-gray-500 mb-2">System initialized. Waiting for command...</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tab: Graph / Dashboard -->
+                        <div id="tab-graph" class="app-tab-content h-full hidden flex-col">
+                            <div class="bg-dynamic-surface flex-1 rounded border border-dynamic p-4 flex flex-col gap-4 shadow-inner">
+                                
+                                <!-- Placeholder inicial -->
+                                <div id="graphPlaceholder" class="text-gray-500 text-sm text-center my-auto">
+                                    Nenhum dado processado. Execute a análise primeiro.
+                                </div>
+
+                                <!-- Painel de Métricas -->
+                                <div id="metricsPanel" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col gap-1">
+                                        <div class="text-[10px] uppercase text-dynamic-dim font-mono">RMSE</div>
+                                        <div id="metric-rmse" class="text-2xl font-bold text-dynamic-main">--</div>
+                                        <div class="text-[11px] text-dynamic-dim">Raiz do erro quadrático médio. Quanto menor, melhor.</div>
+                                    </div>
+                                    <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col gap-1">
+                                        <div class="text-[10px] uppercase text-dynamic-dim font-mono">MAE</div>
+                                        <div id="metric-mae" class="text-2xl font-bold text-dynamic-main">--</div>
+                                        <div class="text-[11px] text-dynamic-dim">Erro absoluto médio na mesma unidade da série.</div>
+                                    </div>
+                                    <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col gap-1">
+                                        <div class="text-[10px] uppercase text-dynamic-dim font-mono">Épocas de treino</div>
+                                        <div id="metric-epochs" class="text-2xl font-bold text-dynamic-main">--</div>
+                                        <div class="text-[11px] text-dynamic-dim">Quantas iterações o modelo usou.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Gráficos -->
+                        <div id="chartsPanel" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-[260px]">
+                            <!-- 1) HISTÓRICO + FORECAST -->
+                            <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xs font-bold text-dynamic-main uppercase">Histórico + Forecast</h4>
+                                </div>
+                                <div class="flex-1 min-h-[200px]">
+                                    <canvas id="chart-history-forecast" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- 2) SOMENTE HORIZONTE PREVISTO -->
+                            <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xs font-bold text-dynamic-main uppercase">Somente horizonte previsto</h4>
+                                </div>
+                                <div class="flex-1 min-h-[200px]">
+                                    <canvas id="chart-forecast-only" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- 3) RESUMO DO HORIZONTE PREVISTO (Mín / Média / Máx) -->
+                            <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xs font-bold text-dynamic-main uppercase">Indicadores-chave da previsão</h4>
+                                </div>
+                                <div class="flex-1 min-h-[200px]">
+                                    <canvas id="chart-forecast-summary" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- 4) VARIAÇÃO % VS ÚLTIMO VALOR REAL -->
+                            <div class="bg-dynamic-panel border border-dynamic rounded-xl p-4 flex flex-col">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xs font-bold text-dynamic-main uppercase">Variação % vs último valor real</h4>
+                                </div>
+                                <div class="flex-1 min-h-[200px]">
+                                    <canvas id="chart-forecast-change" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Chat -->
+                    <div id="app-chat-sidebar" class="hidden w-full md:w-80 bg-dynamic-surface border-l border-dynamic flex-col h-64 md:h-auto border-t md:border-t-0">
+                        <div class="p-3 bg-dynamic-panel border-b border-dynamic flex justify-between items-center">
+                            <h4 class="text-xs font-bold text-dynamic-main uppercase">VORA Assistant</h4>
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        </div>
+                        <div id="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-4 text-xs">
+                            <div class="flex gap-3 animate-fadeIn">
+                                <div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-[10px] text-accent border border-accent/30">V</div>
+                                <div class="text-dynamic-main bg-accent/5 p-3 rounded-lg rounded-tl-none border border-accent/20">Bem-vindo ao Vora. Conecte seus dados na primeira aba.</div>
+                            </div>
+                        </div>
+                        <div class="p-3 border-t border-dynamic">
+                            <input type="text" id="chatInput" placeholder="Digite um comando..." class="w-full bg-[var(--bg-input)] border border-dynamic rounded px-3 py-2 text-xs text-dynamic-main focus:border-accent outline-none placeholder-gray-500">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== SYSTEM MODAL ===================== -->
+    <div id="sys-modal" class="fixed inset-0 z-[300] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="glass-heavy w-full max-w-md rounded-2xl p-6 border-dynamic transform scale-95 transition-transform duration-300 relative shadow-2xl shadow-purple-900/20" id="sys-modal-content">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-dynamic-main transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div id="modal-body">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-[#15151A] border border-accent/30 text-white px-4 py-3 rounded-lg shadow-xl translate-y-20 opacity-0 transition-all duration-300 z-[400] flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+        <span id="toast-msg" class="text-sm font-medium">Notification</span>
+    </div>
+
+    <script src="./js/plataforma.js"></script>
+    <script src="./js/plataforma.dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+ESTRUTURA DO PROJETO VORA
+=========================
+
+VORA/
+├── .venv/                      -> Ambiente virtual Python (dependências do backend)
+├── .vscode/
+│   └── settings.json           -> Configurações do VS Code (Live Server, etc.)
+
+├── backend/                    -> BACKEND (API FastAPI)
+│   ├── .idea/                  -> Arquivos de configuração da IDE (pode ignorar)
+│   ├── app/
+│   │   ├── __pycache__/        -> Arquivos compilados do Python (auto-gerado)
+│   │   │   └── main.cpython-311.pyc
+│   │   ├── models/             -> Modelos / esquemas de dados
+│   │   │   ├── __pycache__/
+│   │   │   └── user.py         -> Modelo de usuário
+│   │   ├── routers/            -> Rotas da API
+│   │   │   ├── __pycache__/
+│   │   │   ├── auth.py         -> Rotas de autenticação (login / registro)
+│   │   │   ├── contact.py      -> Rotas de contato / formulários
+│   │   │   └── upload.py       -> Rotas de upload de arquivos (CSV, JSON, Excel)
+│   │   └── main.py             -> App principal FastAPI (inclui os routers)
+│   ├── uploads/                -> AQUI caem os arquivos enviados (datasets)
+│   ├── .env                    -> Variáveis de ambiente (credenciais, configs)
+│   └── requirements.txt        -> Lista de libs Python usadas no backend
+
+├── Site/                       -> FRONTEND (site que o usuário acessa)
+│   ├── .vscode/
+│   │   └── settings.json       -> Configuração específica pro Live Server do front
+│   ├── css/
+│   │   ├── index.css           -> Estilos da página inicial (index.html)
+│   │   ├── plataforma.css      -> Estilos da plataforma (plataforma.html)
+│   │   └── politicaContato.css -> Estilos da página de política/contato
+│   ├── img/
+│   │   ├── LogoV.png
+│   │   └── LogoVora.png        -> Logos usadas no site
+│   ├── js/
+│   │   ├── index.js            -> Lógica da página inicial (login, etc.)
+│   │   ├── plataforma.js       -> Lógica da plataforma (upload, prévia, perfil)
+│   │   └── politicaContato.js  -> Lógica da página de política/contato
+│   ├── estrutura_pastas.txt    -> Descrição antiga da estrutura (pode atualizar)
+│   ├── index.html              -> Página inicial do site (login / landing)
+│   ├── plataforma.html         -> Tela da plataforma após login
+│   └── politicaContato.html    -> Página de política / contato
+
+├── .gitattributes              -> Configuração para Git (normalizar arquivos)
+└── README.md                   -> Descrição geral do projeto VORA

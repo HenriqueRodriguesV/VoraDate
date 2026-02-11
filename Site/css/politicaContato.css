@@ -1,0 +1,43 @@
+
+        /* --- REUTILIZANDO O DESIGN SYSTEM DA LANDING PAGE --- */
+        :root {
+            --bg-core: #0A0A0C;
+            --bg-panel: rgba(21, 21, 26, 0.95); 
+            --bg-surface: rgba(13, 13, 17, 0.8); 
+            --bg-card: rgba(20, 20, 25, 0.6);
+            --accent: #8B5CF6;
+            --border-std: rgba(255, 255, 255, 0.08);
+            --text-main: #E2E8F0;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-core);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Classes Utilitárias do Tema */
+        .text-accent { color: var(--accent); }
+        .bg-dynamic-panel { background-color: var(--bg-panel); }
+        .bg-dynamic-surface { background-color: var(--bg-surface); }
+        .border-dynamic { border-color: var(--border-std); }
+        
+        .glass-std {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-std);
+        }
+
+        h1, h2, h3 { color: var(--text-main); font-weight: 700; }
+        h1 { letter-spacing: -0.02em; }
+        p { color: var(--text-dim); margin-bottom: 1.5rem; }
+        
+        /* Estilo específico para texto jurídico */
+        .legal-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; color: #fff; }
+        .legal-content ul { list-style-type: disc; padding-left: 1.5rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+        .legal-content li { margin-bottom: 0.5rem; }
+    
